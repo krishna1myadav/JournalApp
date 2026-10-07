@@ -1,5 +1,6 @@
 package com.springboot.journalApp.service;
 
+import com.springboot.journalApp.entity.User;
 import com.springboot.journalApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUserName(username);
+        if( user != null ){
+            UserDetails userDetails = org.springframework.security.core.userdetails.User.builder().
+                    username(user.getUserName()).
+                    password(user.getPassword()).
+                    roles(user.getRoles().toArray(new String[0])).
+                    build();
+            return userDetails;
+        }
         return null;
     }
 }
