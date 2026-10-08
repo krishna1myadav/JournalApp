@@ -20,11 +20,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
-    public void createUser(@RequestBody User user){
-        userService.saveEntry(user);
-    }
-
     @PutMapping("/{userName}")
     public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String userName){
         User userInDb = userService.findByUserName(userName);

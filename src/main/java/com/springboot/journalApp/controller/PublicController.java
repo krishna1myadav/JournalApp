@@ -1,15 +1,24 @@
 package com.springboot.journalApp.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.springboot.journalApp.entity.User;
+import com.springboot.journalApp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/public")
 public class PublicController {
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/health-check")
     public String healthCheck(){
         return "OK";
+    }
+
+    @PostMapping
+    public void createUser(@RequestBody User user){
+        userService.saveEntry(user);
     }
 }
