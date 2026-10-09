@@ -2,6 +2,7 @@ package com.springboot.journalApp.controller;
 
 import com.springboot.journalApp.entity.JournalEntry;
 import com.springboot.journalApp.entity.User;
+import com.springboot.journalApp.repository.UserRepository;
 import com.springboot.journalApp.service.JournalEntryService;
 import com.springboot.journalApp.service.UserService;
 import org.bson.types.ObjectId;
@@ -22,6 +23,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody User user){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -35,8 +39,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/user")
+    @DeleteMapping
     public ResponseEntity<?> deleteByUserName(@RequestParam String userName){
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        userRepository.deleteByUserName(authentication.getName());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
