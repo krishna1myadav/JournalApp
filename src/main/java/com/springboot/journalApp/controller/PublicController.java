@@ -3,7 +3,6 @@ package com.springboot.journalApp.controller;
 import com.springboot.journalApp.entity.User;
 import com.springboot.journalApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,6 +21,6 @@ public class PublicController {
 
     @PostMapping("/create-user")
     public void createUser(@RequestBody User user){
-        userService.saveEntry(user);
+        userService.saveNewEntry(user);
     }
 }
