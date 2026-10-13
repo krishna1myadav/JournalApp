@@ -80,12 +80,15 @@ public class JournalEntryController {
         }
     }
 
-    @PutMapping("id/{id}")
-    public ResponseEntity<?> updateJournalEntryById(@PathVariable ObjectId id, @RequestBody JournalEntry newEntry){
+    @PutMapping("myId/{myId}")
+    public ResponseEntity<?> updateJournalEntryById(@PathVariable ObjectId myId, @RequestBody JournalEntry newEntry){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
 
-        JournalEntry old = journalEntryService.findById(id).orElse(null);
+        User user = userService.findByUserName(userName);
+        List<JournalEntry> collect = user.getJournalEntries().stream().filter(x -> x.getId().equals(myId)).collect(Collectors.toList());
+
+        JournalEntry old = journalEntryService.findById(myId).orElse(null);
 
         if(old != null){
             old.setContent(newEntry.getContent() != null && !newEntry.getContent().equals("") ? newEntry.getContent()
