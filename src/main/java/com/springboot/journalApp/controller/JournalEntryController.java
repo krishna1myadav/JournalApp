@@ -91,18 +91,14 @@ public class JournalEntryController {
         if(!collect.isEmpty()){
             Optional<JournalEntry> journalEntry = journalEntryService.findById(myId);
             if(journalEntry.isPresent()){
-                return new ResponseEntity<>(journalEntry.get(), HttpStatus.OK);
+                JournalEntry old = journalEntry.get();
+                old.setContent(newEntry.getContent() != null && !newEntry.getContent().equals("") ? newEntry.getContent()
+                        : old.getContent());
+                old.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle()
+                        : old.getTitle());
+                journalEntryService.saveEntry(old);
+                return new ResponseEntity<>(old, HttpStatus.OK);
             }
-        }
-        JournalEntry old = journalEntryService.findById(myId).orElse(null);
-
-        if(old != null){
-            old.setContent(newEntry.getContent() != null && !newEntry.getContent().equals("") ? newEntry.getContent()
-                    : old.getContent());
-            old.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle()
-                    : old.getTitle());
-            journalEntryService.saveEntry(old);
-            return new ResponseEntity<>(old, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
