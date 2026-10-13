@@ -82,6 +82,9 @@ public class JournalEntryController {
 
     @PutMapping("id/{id}")
     public ResponseEntity<?> updateJournalEntryById(@PathVariable ObjectId id, @RequestBody JournalEntry newEntry){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+
         JournalEntry old = journalEntryService.findById(id).orElse(null);
 
         if(old != null){
