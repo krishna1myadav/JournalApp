@@ -4,6 +4,7 @@ import com.springboot.journalApp.entity.User;
 import com.springboot.journalApp.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -25,6 +26,11 @@ public class UserServiceTests {
     }
 
     @ParameterizedTest
+    @CsvSource({
+            "1, 3, 4",
+            "2, 5, 7",
+            "3, 8, 10"
+    })
     public void test(int a, int b, int expected){
         assertEquals(expected, a + b);
 
