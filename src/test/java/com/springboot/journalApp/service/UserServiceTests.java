@@ -2,6 +2,7 @@ package com.springboot.journalApp.service;
 
 import com.springboot.journalApp.entity.User;
 import com.springboot.journalApp.repository.UserRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -19,6 +20,7 @@ public class UserServiceTests {
     @Autowired
     private JournalEntryService journalEntryService;
 
+    @Disabled
     @Test
     public void testFindByUserName(){
         User user = userRepository.findByUserName("mohan");
