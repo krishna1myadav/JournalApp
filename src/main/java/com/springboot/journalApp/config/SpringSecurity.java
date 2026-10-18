@@ -21,7 +21,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@Profile("dev")
 public class SpringSecurity{
 
     @Autowired
