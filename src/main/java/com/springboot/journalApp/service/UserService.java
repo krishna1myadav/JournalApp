@@ -24,16 +24,21 @@ public class UserService {
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+  //  private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public boolean saveNewEntry(User user){
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRoles(Arrays.asList("USER"));
             userRepository.save(user);
+            log.info("User save method called");
             return true;
         }catch(Exception e){
-            logger.info("hahaahahahahhahahahahah");
+            log.error("hahaahahahahhahahahahah");
+            log.warn("hahaahahahahhahahahahah");
+            log.info("hahaahahahahhahahahahah");
+            log.debug("hahaahahahahhahahahahah");
+            log.trace("hahaahahahahhahahahahah");
             return false;
         }
     }
