@@ -16,6 +16,11 @@ target/
 .yml
 .log
 
+*.properties
+*.yml
+*.yaml
+!.gitignore
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
