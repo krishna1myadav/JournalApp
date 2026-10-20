@@ -4,10 +4,10 @@ import com.springboot.journalApp.api.response.WeatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Component
+@Service
 public class WeatherService {
     private static final String apiKey = "23298177ccd6372985cd493402c5beed";
 
@@ -19,10 +19,13 @@ public class WeatherService {
     public WeatherResponse getWeather(String city) {
         String finalAPI = API.replace("CITY", city).replace("API_KEY", apiKey);
 
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.set("key", "value");
+//
+//        User user = User.builder().userName("mohan").password("mohan1111").build();
+//        HttpEntity<User> httpEntity = new HttpEntity<>(user, httpHeaders);
 
-
-
-        ResponseEntity<WeatherResponse> response = restTemplate.exchange(finalAPI, HttpMethod.POST, null, WeatherResponse.class);
+        ResponseEntity<WeatherResponse> response = restTemplate.exchange(finalAPI, HttpMethod.PUT,null, WeatherResponse.class);
         WeatherResponse body = response.getBody();
         return body;
     }
