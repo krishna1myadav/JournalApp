@@ -1,7 +1,9 @@
 package com.springboot.journalApp.service;
 
+import com.springboot.journalApp.api.response.WeatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 public class WeatherService {
@@ -12,8 +14,8 @@ public class WeatherService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public String getWeather(String city) {
+    public WeatherResponse getWeather(String city) {
         String finalAPI = API.replace("CITY", city).replace("API_KEY", apiKey);
-        restTemplate.exchange(finalAPI, HttpMethod.GET, null)
+
     }
 }

@@ -1,21 +1,36 @@
 package com.springboot.journalApp.api.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
-public class weatherResponse {
+public class WeatherResponse {
     private Request request;
     private Location location;
     private Current current;
 
     public class Current{
-        private String observation_time;
+        @JsonProperty("observation_time")
+        private String observationTime;
         private int temperature;
-        private int weather_code;
-        private List<String> weather_icons;
-        private List<String> weather_descriptions;
-        private int wind_speed;
-        private int wind_degree;
-        private String wind_dir;
+
+        @JsonProperty("weather_code")
+        private int weatherCode;
+
+        @JsonProperty("weather_icons")
+        private List<String> weatherIcons;
+
+        @JsonProperty("weather_descriptions")
+        private List<String> weatherDescriptions;
+
+        @JsonProperty("wind_speed")
+        private int windSpeed;
+
+        @JsonProperty("wind_degree")
+        private int windDegree;
+
+        @JsonProperty("wind_dir")
+        private String windDir;
         private int pressure;
         private int precip;
         private int humidity;
