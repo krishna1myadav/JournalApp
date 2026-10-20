@@ -1,14 +1,22 @@
 package com.springboot.journalApp.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class WeatherResponse {
     private Request request;
     private Location location;
     private Current current;
 
+
+    @Getter
+    @Setter
     public class Current{
         @JsonProperty("observation_time")
         private String observationTime;
@@ -41,6 +49,8 @@ public class WeatherResponse {
         private String is_day;
     }
 
+    @Getter
+    @Setter
     public class Location{
         private String name;
         private String country;
@@ -53,6 +63,8 @@ public class WeatherResponse {
         private String utc_offset;
     }
 
+    @Getter
+    @Setter
     public class Request{
         public String type;
         public String query;
