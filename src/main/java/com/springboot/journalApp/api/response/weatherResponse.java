@@ -38,7 +38,12 @@ public class weatherResponse {
         private String utc_offset;
     }
 
-
+    public class Request{
+        public String type;
+        public String query;
+        public String language;
+        public String unit;
+    }
 }
 
 
