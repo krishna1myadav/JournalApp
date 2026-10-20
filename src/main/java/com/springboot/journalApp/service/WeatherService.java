@@ -21,13 +21,6 @@ public class WeatherService {
 
     public WeatherResponse getWeather(String city) {
         String finalAPI = API.replace("CITY", city).replace("API_KEY", apiKey);
-
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.set("key", "value");
-//
-//        User user = User.builder().userName("mohan").password("mohan1111").build();
-//        HttpEntity<User> httpEntity = new HttpEntity<>(user, httpHeaders);
-
         ResponseEntity<WeatherResponse> response = restTemplate.exchange(finalAPI, HttpMethod.PUT,null, WeatherResponse.class);
         WeatherResponse body = response.getBody();
         return body;
