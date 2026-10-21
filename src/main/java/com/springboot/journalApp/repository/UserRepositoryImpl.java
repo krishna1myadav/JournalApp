@@ -25,7 +25,6 @@ public class UserRepositoryImpl {
 //                Criteria.where("email").exists(true),
 //                Criteria.where("sentimentAnalysis").is(true)
 //        ));
-        List<User> users = mongoTemplate.find(query, User.class);
-        return users;
+        return mongoTemplate.find(query, User.class);
     }
 }
