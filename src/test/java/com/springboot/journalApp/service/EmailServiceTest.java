@@ -1,7 +1,12 @@
 package com.springboot.journalApp.service;
 
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
-@SpringBootTest
+@Service
 public class EmailServiceTest {
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 }
