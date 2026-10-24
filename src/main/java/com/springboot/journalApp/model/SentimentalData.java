@@ -1,4 +1,4 @@
 package com.springboot.journalApp.model;
 
-public class SentimentData {
+public class SentimentalData {
 }
