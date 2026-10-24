@@ -7,6 +7,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.ObjectMapper;
 
+import java.util.concurrent.TimeUnit;
+
 @Service
 @Slf4j
 public class RedisService {
@@ -22,6 +24,14 @@ public class RedisService {
         }catch (Exception e){
             log.error("Exception: ", e);
             return null;
+        }
+    }
+
+    public void set(String key, Object o, Long ttl){
+        try {
+            redisTemplate.opsForValue().set(key, o.toString(), ttl, TimeUnit.SECONDS);
+        }catch (Exception e){
+            log.error("Exception: ", e);
         }
     }
 }
