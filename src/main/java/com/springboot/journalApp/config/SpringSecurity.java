@@ -1,16 +1,18 @@
 package com.springboot.journalApp.config;
 
+import com.springboot.journalApp.filter.JwtFilter;
 import com.springboot.journalApp.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,23 +28,34 @@ public class SpringSecurity{
     @Autowired
     private JwtFilter jwtFilter;
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http.authorizeHttpRequests(request -> request
-                        .requestMatchers("/public/**").permitAll()
-                        .requestMatchers("/journal/**", "/user/**").authenticated()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated())
-                .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+        return http
+                .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/journal/**", "/user/**").authenticated()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().permitAll()
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .csrf(csrf -> csrf.disable())
+                .addFilterBefore(
+                        jwtFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                )
                 .build();
     }
 
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider =
+                new DaoAuthenticationProvider(userDetailsService);
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
     }
 
     @Bean
