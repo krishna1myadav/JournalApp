@@ -10,5 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth/google")
 public class GoogleAuthController {
 
+    @GetMapping("/callback")
+    public ResponseEntity<?> handleGoogleCallback(@RequestParam String code){
 
+    }
 }
