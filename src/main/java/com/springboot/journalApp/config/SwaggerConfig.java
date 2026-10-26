@@ -3,6 +3,7 @@ package com.springboot.journalApp.config;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.oas.models.tags.Tag;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,6 +20,12 @@ public class SwaggerConfig {
                         .description("By Mohan")
                 )
                 .servers(List.of(new Server().url("http://localhost:8080").description("localhost"),
-                        new Server().url("http://localhost:8081").description("Production")));
+                        new Server().url("http://localhost:8081").description("Production")))
+                .tags(List.of(
+                        new Tag().name("Public APIs"),
+                        new Tag().name("User APIs"),
+                        new Tag().name("Journal APIs"),
+                        new Tag().name("Admin APIs")
+                ));
     }
 }
